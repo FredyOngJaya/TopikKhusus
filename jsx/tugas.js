@@ -50,8 +50,6 @@ var CategoryResult = React.createClass({
 		this.loadData();
 	},
 	searchBooks: function(keyword) {
-		var manga = "./data/best-sellers/manga.json";
-		var cover = "./data/best-sellers/hardcover-fiction.json";
 		var newBooks = [];
 		var promise = [];
 		
@@ -95,13 +93,28 @@ var CategoryResult = React.createClass({
 			caption = <span>Search result of {this.props.searchKey === "" ? "..." : this.props.searchKey}</span>;
 		}
 		if (this.state.books.length > 0) {
-			book = this.state.books.map(function(data) {
+			books = this.state.books.map(function(data) {
 				return (
-					<div>{data.title} - {data.tipe}</div>
+					<tr>
+						<td>{data.title}</td>
+						<td>{data.tipe}</td>
+					</tr>
 				);
 			});
+			book = (
+				<table className="table table-stripped">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Type</th>
+						</tr>
+					</thead>
+					<tbody>
+					{books}
+					</tbody>
+				</table>
+			);
 		} else if (this.props.searchKey !== "") {
-			console.log(this.state.keyword);
 			book = <div>No result</div>;
 		}
 		
